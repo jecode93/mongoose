@@ -44,7 +44,7 @@ const banana = Fruit({
     review: "Weird texture"
 });
 
-//COMMENT TO AVOID INSERTION OF THESE DOCUMMENT TO THE DATABASE
+//COMMENT TO AVOID INSERTION OF THESE DOCUMENT TO THE DATABASE
 // Fruit.insertMany([kiwi, orange, banana], function (err) {
 //     if (err) {
 //         console.log(err);
@@ -53,10 +53,22 @@ const banana = Fruit({
 //     }
 // });
 
-
-
 // fruit.save(); // TO SAVE THE DATA TO THE DATABASE, IF NOT COMMENT IT WILL EXECUTE EVERYTIME WE RUN OUR APP.
 
+
+//READING FROM OUR DATABASE WITH MONGOOSE
+Fruit.find(function (err, fruits) {
+    if (err) {
+        console.log(err);
+    } else {
+        // console.log(fruits);
+        fruits.forEach(fruit => {
+            console.log(fruit);
+        });
+
+        mongoose.connection.close(); // ALWAYS CLOSE THE CONNECTION OF THE DATABASE WHEN FINISHING THE LAST ACTION IN OUR APP
+    }
+});
 
 
 
