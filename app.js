@@ -18,7 +18,7 @@ const fruistSchema = new mongoose.Schema({
         // This is to add a data validation
 
         type: String,
-        // required: [true, "Please check your data entry, no name specified."]
+        required: [true, "Please check your data entry, no name specified."]
     },
     rating: {
         // This is to add a data validation
