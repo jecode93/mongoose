@@ -8,6 +8,10 @@ const database = "fruitsDB";
 mongoose.set('strictQuery', false);
 mongoose.connect("mongodb://localhost:27017/" + database, { useNewUrlParser: true });
 
+
+
+
+
 //Create the Schema of the data model
 const fruistSchema = new mongoose.Schema({
     name: {
@@ -25,22 +29,29 @@ const fruistSchema = new mongoose.Schema({
     review: String
 });
 
+
+
+
+
 //Use the Schema and create the collection of the database with the singular name 
 const Fruit = mongoose.model("Fruit", fruistSchema);
 
-//INSERT A DOCUMENT to the database
-// const fruit = new Fruit({
-//     rating: 10,
-//     review: "Pretty solid as a fruit."
-// });
 
+
+
+
+//INSERT A DOCUMENT to the database
+const fruit = new Fruit({
+    rating: 10,
+    review: "Pretty solid as a fruit."
+});
 
 //INSERTION OF MULTIPLES DOCUMENTS
-// const kiwi = Fruit({
-//     name: "Kiwi",
-//     rating: 10,
-//     review: "The best fruit!"
-// });
+const kiwi = Fruit({
+    name: "Kiwi",
+    rating: 10,
+    review: "The best fruit!"
+});
 
 const orange = Fruit({
     name: "Orange",
@@ -48,11 +59,15 @@ const orange = Fruit({
     review: "The sour for me"
 });
 
-// const banana = Fruit({
-//     name: "Banana",
-//     rating: 3,
-//     review: "Weird texture"
-// });
+const banana = Fruit({
+    name: "Banana",
+    rating: 3,
+    review: "Weird texture"
+});
+
+
+
+
 
 // Add new fruit to our database.
 const pineapple = Fruit({
@@ -61,63 +76,78 @@ const pineapple = Fruit({
     review: "Great fruit"
 });
 
-// pineapple.save() // Save the pineapple fruit to our database.
+// pineapple.save() // To Save the pineapple fruit to our database.
+
+
 
 
 
 //COMMENT TO AVOID INSERTION OF THESE DOCUMENT TO THE DATABASE
-// Fruit.insertMany([kiwi, orange, banana], function (err) {
-//     if (err) {
-//         console.log(err);
-//     } else {
-//         console.log("Successfully saved all of the fruits to fruitsDB");
-//     }
-// });
+Fruit.insertMany([kiwi, orange, banana], function (err) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("Successfully saved all of the fruits to fruitsDB");
+    }
+});
 
 // fruit.save(); // TO SAVE THE DATA TO THE DATABASE, IF NOT COMMENT IT WILL EXECUTE EVERYTIME WE RUN OUR APP.
 
 
-//READING FROM OUR DATABASE WITH MONGOOSE
-// Fruit.find(function (err, fruits) {
-//     if (err) {
-//         console.log(err);
-//     } else {
-//         // console.log(fruits);
-//         fruits.forEach(fruit => {
-//             console.log(fruit);
-//         });
 
-//         mongoose.connection.close(); // ALWAYS CLOSE THE CONNECTION OF THE DATABASE WHEN FINISHING THE LAST ACTION IN OUR APP
-//     }
-// });
+
+
+//READING FROM OUR DATABASE WITH MONGOOSE
+Fruit.find(function (err, fruits) {
+    if (err) {
+        console.log(err);
+    } else {
+        // console.log(fruits);
+        fruits.forEach(fruit => {
+            console.log(fruit);
+        });
+
+        mongoose.connection.close(); // ALWAYS CLOSE THE CONNECTION OF THE DATABASE WHEN FINISHING THE LAST ACTION IN OUR APP
+    }
+});
+
+
+
 
 //UPDATE DOCUMENT FROM OUR DATABASE WITH MONGOOSE
-// Fruit.updateOne(
-//     { _id: "63ba3629e0e14c9f36c2d9c3" }, //The _id of the document that we want to update.
-//     { name: "Peach" }, // The field of the document that we want to update.
-//     function (err) { // Callback to log any errors
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log("Succesfully updated the document");
-//         }
-//     });
+Fruit.updateOne(
+    { _id: "63ba3629e0e14c9f36c2d9c3" }, //The _id of the document that we want to update.
+    { name: "Peach" }, // The field of the document that we want to update.
+    function (err) { // Callback to log any errors
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Succesfully updated the document");
+        }
+    });
 
-//DELETE DOCUMENT FROM OUR DATABASE WITH MONGOOSE
-// Fruit.deleteOne(
-//     { _id: "63ba3b7204036eb00d7d8e98" }, //The _id of the document that we want to delete.
-//     function (err) { // Callback to log any errors
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log("Document delete successfully.");
-//             mongoose.connection.close();
-//         }
-//     }
-// );
 
 
 
+//DELETE DOCUMENT FROM OUR DATABASE WITH MONGOOSE
+Fruit.deleteOne(
+    { _id: "63ba3b7204036eb00d7d8e98" }, //The _id of the document that we want to delete.
+    function (err) { // Callback to log any errors
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Document delete successfully.");
+            mongoose.connection.close();
+        }
+    }
+);
+
+
+
+
+
+
+//CHALLENGE - CHALLENGE - CHALLENGE
 
 //Challenge to create a new collection of people that have a schema of 2 fields "name" and "age".
 
@@ -149,4 +179,4 @@ People.updateOne({ _id: "63b89b65df324b4b67bc1d45" },
             console.log("Sucessfully Updated.");
             mongoose.connection.close();
         }
-    })
+    });
