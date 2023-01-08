@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 
 //DB Name
@@ -41,17 +42,28 @@ const Fruit = mongoose.model("Fruit", fruistSchema);
 //     review: "The best fruit!"
 // });
 
-// const orange = Fruit({
-//     name: "Orange",
-//     rating: 4,
-//     review: "The sour for me"
-// });
+const orange = Fruit({
+    name: "Orange",
+    rating: 4,
+    review: "The sour for me"
+});
 
 // const banana = Fruit({
 //     name: "Banana",
 //     rating: 3,
 //     review: "Weird texture"
 // });
+
+// Add new fruit to our database.
+const pineapple = Fruit({
+    name: "Pineapple",
+    rating: 9,
+    review: "Great fruit"
+});
+
+// pineapple.save() // Save the pineapple fruit to our database.
+
+
 
 //COMMENT TO AVOID INSERTION OF THESE DOCUMENT TO THE DATABASE
 // Fruit.insertMany([kiwi, orange, banana], function (err) {
@@ -80,29 +92,29 @@ const Fruit = mongoose.model("Fruit", fruistSchema);
 // });
 
 //UPDATE DOCUMENT FROM OUR DATABASE WITH MONGOOSE
-Fruit.updateOne(
-    { _id: "63ba3629e0e14c9f36c2d9c3" }, //The _id of the document that we want to update.
-    { name: "Peach" }, // The field of the document that we want to update.
-    function (err) { // Callback to log any errors
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("Succesfully updated the document");
-        }
-    });
+// Fruit.updateOne(
+//     { _id: "63ba3629e0e14c9f36c2d9c3" }, //The _id of the document that we want to update.
+//     { name: "Peach" }, // The field of the document that we want to update.
+//     function (err) { // Callback to log any errors
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             console.log("Succesfully updated the document");
+//         }
+//     });
 
 //DELETE DOCUMENT FROM OUR DATABASE WITH MONGOOSE
-Fruit.deleteOne(
-    { _id: "63ba3b7204036eb00d7d8e98" }, //The _id of the document that we want to delete.
-    function (err) { // Callback to log any errors
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("Document delete successfully.");
-            mongoose.connection.close();
-        }
-    }
-);
+// Fruit.deleteOne(
+//     { _id: "63ba3b7204036eb00d7d8e98" }, //The _id of the document that we want to delete.
+//     function (err) { // Callback to log any errors
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             console.log("Document delete successfully.");
+//             mongoose.connection.close();
+//         }
+//     }
+// );
 
 
 
@@ -111,14 +123,30 @@ Fruit.deleteOne(
 
 const peopleSchema = mongoose.Schema({
     name: String,
-    age: Number
+    age: Number,
+    favoriteFruit: fruistSchema
 });
 
 const People = mongoose.model("People", peopleSchema);
 
 //INSERTION OF ONE PEOPLE
 const people = new People({
-    name: "John",
-    age: 30
+    name: "Amy",
+    age: 30,
+    favoriteFruit: pineapple
 });
 // people.save();  // TO SAVE THE DATA TO THE DATABASE, IF NOT COMMENT IT WILL EXECUTE EVERYTIME WE RUN OUR APP.
+
+
+
+//Challenge to update the people call John in our database and give him a favourite fruit.
+People.updateOne({ _id: "63b89b65df324b4b67bc1d45" },
+    { favoriteFruit: orange },
+    function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Sucessfully Updated.");
+            mongoose.connection.close();
+        }
+    })
