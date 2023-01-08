@@ -13,7 +13,7 @@ const fruistSchema = new mongoose.Schema({
         // This is to add a data validation
 
         type: String,
-        required: [true, "Please check your data entry, no name specified."]
+        // required: [true, "Please check your data entry, no name specified."]
     },
     rating: {
         // This is to add a data validation
@@ -28,12 +28,10 @@ const fruistSchema = new mongoose.Schema({
 const Fruit = mongoose.model("Fruit", fruistSchema);
 
 //INSERT A DOCUMENT to the database
-const fruit = new Fruit({
-
-    name: "Apple",
-    rating: 10,
-    review: "Pretty solid as a fruit."
-});
+// const fruit = new Fruit({
+//     rating: 10,
+//     review: "Pretty solid as a fruit."
+// });
 
 
 //INSERTION OF MULTIPLES DOCUMENTS
@@ -64,22 +62,48 @@ const fruit = new Fruit({
 //     }
 // });
 
-fruit.save(); // TO SAVE THE DATA TO THE DATABASE, IF NOT COMMENT IT WILL EXECUTE EVERYTIME WE RUN OUR APP.
+// fruit.save(); // TO SAVE THE DATA TO THE DATABASE, IF NOT COMMENT IT WILL EXECUTE EVERYTIME WE RUN OUR APP.
 
 
 //READING FROM OUR DATABASE WITH MONGOOSE
-Fruit.find(function (err, fruits) {
-    if (err) {
-        console.log(err);
-    } else {
-        // console.log(fruits);
-        fruits.forEach(fruit => {
-            console.log(fruit);
-        });
+// Fruit.find(function (err, fruits) {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         // console.log(fruits);
+//         fruits.forEach(fruit => {
+//             console.log(fruit);
+//         });
 
-        mongoose.connection.close(); // ALWAYS CLOSE THE CONNECTION OF THE DATABASE WHEN FINISHING THE LAST ACTION IN OUR APP
+//         mongoose.connection.close(); // ALWAYS CLOSE THE CONNECTION OF THE DATABASE WHEN FINISHING THE LAST ACTION IN OUR APP
+//     }
+// });
+
+//UPDATE DOCUMENT FROM OUR DATABASE WITH MONGOOSE
+Fruit.updateOne(
+    { _id: "63ba3629e0e14c9f36c2d9c3" }, //The _id of the document that we want to update.
+    { name: "Peach" }, // The field of the document that we want to update.
+    function (err) { // Callback to log any errors
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Succesfully updated the document");
+        }
+    });
+
+//DELETE DOCUMENT FROM OUR DATABASE WITH MONGOOSE
+Fruit.deleteOne(
+    { _id: "63ba3b7204036eb00d7d8e98" }, //The _id of the document that we want to delete.
+    function (err) { // Callback to log any errors
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Document delete successfully.");
+            mongoose.connection.close();
+        }
     }
-});
+);
+
 
 
 
