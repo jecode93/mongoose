@@ -9,8 +9,18 @@ mongoose.connect("mongodb://localhost:27017/" + database, { useNewUrlParser: tru
 
 //Create the Schema of the data model
 const fruistSchema = new mongoose.Schema({
-    name: String,
-    rating: Number,
+    name: {
+        // This is to add a data validation
+
+        type: String,
+        required: [true, "Please check your data entry, no name specified."]
+    },
+    rating: {
+        // This is to add a data validation
+        type: Number,
+        min: 1,
+        max: 10
+    },
     review: String
 });
 
@@ -19,30 +29,31 @@ const Fruit = mongoose.model("Fruit", fruistSchema);
 
 //INSERT A DOCUMENT to the database
 const fruit = new Fruit({
+
     name: "Apple",
-    rating: 7,
+    rating: 10,
     review: "Pretty solid as a fruit."
 });
 
 
 //INSERTION OF MULTIPLES DOCUMENTS
-const kiwi = Fruit({
-    name: "Kiwi",
-    rating: 10,
-    review: "The best fruit!"
-});
+// const kiwi = Fruit({
+//     name: "Kiwi",
+//     rating: 10,
+//     review: "The best fruit!"
+// });
 
-const orange = Fruit({
-    name: "Orange",
-    rating: 4,
-    review: "The sour for me"
-});
+// const orange = Fruit({
+//     name: "Orange",
+//     rating: 4,
+//     review: "The sour for me"
+// });
 
-const banana = Fruit({
-    name: "Banana",
-    rating: 3,
-    review: "Weird texture"
-});
+// const banana = Fruit({
+//     name: "Banana",
+//     rating: 3,
+//     review: "Weird texture"
+// });
 
 //COMMENT TO AVOID INSERTION OF THESE DOCUMENT TO THE DATABASE
 // Fruit.insertMany([kiwi, orange, banana], function (err) {
@@ -53,7 +64,7 @@ const banana = Fruit({
 //     }
 // });
 
-// fruit.save(); // TO SAVE THE DATA TO THE DATABASE, IF NOT COMMENT IT WILL EXECUTE EVERYTIME WE RUN OUR APP.
+fruit.save(); // TO SAVE THE DATA TO THE DATABASE, IF NOT COMMENT IT WILL EXECUTE EVERYTIME WE RUN OUR APP.
 
 
 //READING FROM OUR DATABASE WITH MONGOOSE
