@@ -45,6 +45,11 @@ const fruit = new Fruit({
     rating: 10,
     review: "Pretty solid as a fruit."
 });
+// fruit.save(); // TO SAVE THE DATA TO THE DATABASE, IF NOT COMMENT IT WILL EXECUTE EVERYTIME WE RUN OUR APP.
+
+
+
+
 
 //INSERTION OF MULTIPLES DOCUMENTS
 const kiwi = Fruit({
@@ -66,7 +71,13 @@ const banana = Fruit({
 });
 
 
-
+Fruit.insertMany([kiwi, orange, banana], function (err) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("Successfully saved all of the fruits to fruitsDB");
+    }
+});
 
 
 // Add new fruit to our database.
@@ -82,16 +93,7 @@ const pineapple = Fruit({
 
 
 
-//COMMENT TO AVOID INSERTION OF THESE DOCUMENT TO THE DATABASE
-Fruit.insertMany([kiwi, orange, banana], function (err) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log("Successfully saved all of the fruits to fruitsDB");
-    }
-});
 
-// fruit.save(); // TO SAVE THE DATA TO THE DATABASE, IF NOT COMMENT IT WILL EXECUTE EVERYTIME WE RUN OUR APP.
 
 
 
